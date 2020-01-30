@@ -11,23 +11,31 @@ socket.on('NEW word', function(word, id) {
 })
 
 // Receive new score
-socket.on('NEW score', function(score, id) {
-  insertScore(score, id)
+socket.on('NEW scores', function(scores, id) {
+  insertScores(scores, id)
 })
 
 /* Change DOM in response to events */
 // Insert words into page
 function insertWords(list) {
+  // Clear current wordlists
+  $(".wordslist").empty()
   const numPerCol = list.length / 3
   for (const word in list) {
-    let li
-    if (word < numPerCol) {
-      li = $("#list1")
-    } else if (word < numPerCol * 2) {
-      li = $("#list2")
-    } else {
-      li = $("#list3")
+    if (list[word] === null) {
+      continue
     }
+
+    // Add to correct list
+    let listNum = Math.floor(word/numPerCol)
+    let li = $("#list" + listNum)
+    // if (word < numPerCol) {
+    //   li = $("#list1")
+    // } else if (word < numPerCol * 2) {
+    //   li = $("#list2")
+    // } else {
+    //   li = $("#list3")
+    // }
     li.append(`<li class="word" id="word${word}">${list[word]}</li>`)
   }
 
@@ -41,6 +49,10 @@ function insertWords(list) {
 // Replace word at location
 function insertWord(word, id) {
   console.log("NEW word: " + word + ' ' + id)
+  if (word === null) {
+    $("#"+id).fadeOut()
+    return
+  }
   // Cannot pass to callback functions, so store next word as an attribute.
   $("#"+id).attr("next", word)
   $("#"+id).fadeTo(750, 0, function(word) {
@@ -50,8 +62,11 @@ function insertWord(word, id) {
 }
 
 // Replace score at location
-function insertScore(score, id) {
-  console.log("NEW score: " + score + ' ' + id)
+function insertScores(scores) {
+  console.log("NEW scores: " + scores)
+  for (const num in scores) {
+    $("#score"+num).text(scores[num])
+  }
 }
 
 // Request new word list
