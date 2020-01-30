@@ -1,0 +1,38 @@
+body {
+    font-size: 2vw;
+    background: #111;
+    color: #fff;
+}
+#main {
+    margin-top: 15vh;
+}
+.player {
+}
+.name input {
+    color: inherit;
+    width: 100%;
+    border: none;
+    border-bottom: solid grey 1px;
+    margin-bottom: 10px;
+    background: #0000;
+    outline: none;
+}
+.word::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 3px;
+    background: #fff;
+    transition: width .3s;
+}
+.word:hover {
+    cursor: pointer;
+}
+.word:hover::after {
+    width: 100%;
+}
+.score {
+    margin: 20px auto;
+    font-size: 4vw;
+    text-align: center;
+}

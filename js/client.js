@@ -11,8 +11,12 @@ socket.on('NEW word', function(word, id) {
 })
 
 // Receive new score
-socket.on('NEW scores', function(scores, id) {
-  insertScores(scores, id)
+socket.on('NEW scores', function(scores) {
+  insertScores(scores)
+})
+
+socket.on('NEW name', function(name, id) {
+  insertName(name, id)
 })
 
 /* Change DOM in response to events */
@@ -29,14 +33,7 @@ function insertWords(list) {
     // Add to correct list
     let listNum = Math.floor(word/numPerCol)
     let li = $("#list" + listNum)
-    // if (word < numPerCol) {
-    //   li = $("#list1")
-    // } else if (word < numPerCol * 2) {
-    //   li = $("#list2")
-    // } else {
-    //   li = $("#list3")
-    // }
-    li.append(`<li class="word" id="word${word}">${list[word]}</li>`)
+    li.append(`<div class="word" id="word${word}">${list[word]}</div>`)
   }
 
   // Setup Listener
@@ -69,6 +66,12 @@ function insertScores(scores) {
   }
 }
 
+// Replace name
+function insertName(name, id) {
+  console.log("NEW name: " + name + ' ' + id)
+  $("#"+id).val(name)
+}
+
 // Request new word list
 function loadList() {
   socket.emit('REQ list')
@@ -80,5 +83,10 @@ function delWord(id) {
 }
 
 $(document).ready(() => {
-  loadList()
+  $(".name input").change(function () {
+    let id = $(this).attr('id')
+    let val = $(this).val()
+    console.log('REQ name', val, id)
+    socket.emit('REQ name', val, id)
+  })
 })
