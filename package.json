@@ -1,0 +1,26 @@
+{
+  "name": "meeting-word-game",
+  "version": "1.0.0",
+  "description": "game to play with words",
+  "main": "index.js",
+  "scripts": {
+    "fix": "standard --fix | snazzy",
+    "test": "standard --verbose | snazzy",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "bootswatch": "^4.4.1",
+    "express": "^4.17.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.1",
+    "shuffle-array": "^1.0.1",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "snazzy": "^8.0.0",
+    "standard": "^14.3.1"
+  }
+}
