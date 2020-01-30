@@ -71,6 +71,20 @@ function insertScores (scores) {
   for (const num in scores) {
     $('#score' + num).text(scores[num])
   }
+
+  // Get max score
+  const max = Math.max(...scores)
+
+  $('.score').each(function () {
+    console.log($(this).text(), max+"", $(this).text() == max+"")
+    if ($(this).text() == max+"") {
+      $(this).addClass("winning")
+      $(this).siblings(".name").addClass("winning")
+    } else {
+      $(this).removeClass("winning")
+      $(this).siblings(".name").removeClass("winning")
+    }
+  })
 }
 
 // Replace name
